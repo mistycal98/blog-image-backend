@@ -7,6 +7,7 @@ const app = express();
 
 dotenv.config({ path: "./config.env" });
 
+app.use('/image',express.static('blog-images/images'));
 app.use(express.json());
 app.get("/", (req, res) => {
 	res.send("<h1>Home Page</h1>");
@@ -14,9 +15,9 @@ app.get("/", (req, res) => {
 
 app.use("/blogs", blogRouter);
 
-app.get('*', (req, res) => {
-    res.send('<h1>404 Not Found</h1>');
-});
+// app.get('*', (req, res) => {
+//     res.send('<h1>404 Not Found</h1>');
+// });
 
 mongoose.connect(
 	process.env.DB_CONNECTION,

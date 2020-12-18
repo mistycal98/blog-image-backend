@@ -40,10 +40,7 @@ const createBlog = async (req, res) => {
 			title: req.body.title,
 			content: req.body.content,
 			relatedlinks: req.body.relatedlinks,
-			image: {
-				data: fs.readFileSync(path.join(__dirname, "..", "blog-images", "images", req.file.filename)),
-				contentType: "image/png",
-			},
+			imageUrl: `http://localhost:${process.env.PORT}/image/${req.file.filename}`,
 		});
 		let newBlog = await data.save();
 		sendResponse(200, "SucessFull", newBlog, req, res);
