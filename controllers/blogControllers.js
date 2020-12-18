@@ -1,4 +1,5 @@
 const uniqid = require("uniqid");
+const fs = require("fs");
 
 const AppError = require("../helpers/appError");
 const sendErrorMessage = require("../helpers/sendErrorResponse");
@@ -30,10 +31,14 @@ const createBlog = async (req, res) => {
 	try {
 		const data = new Blog({
 			blogid: uniqid(),
-			header: req.body.header,
+			author: req.body.author,
+			title: req.body.title,
 			content: req.body.content,
 			relatedlinks: req.body.relatedlinks,
-			imageUrl: req.body.imageUrl,
+			imageUrl: {
+				data: fs.readFileSync(path.join(__dirname, "..", "images", "req.file.filename")),
+				contentType: "image/png",
+			},
 		});
 		let newBlog = await data.save();
 		sendResponse(200, "SucessFull", newBlog, req, res);
@@ -88,6 +93,6 @@ module.exports = {
 	getBlogById,
 	createBlog,
 	updateBlog,
-    deleteBlog,
-    deleteAllBlogs
+	deleteBlog,
+	deleteAllBlogs,
 };
