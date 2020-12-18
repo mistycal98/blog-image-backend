@@ -24,7 +24,7 @@ const getAllBlogs = async (req, res) => {
 // GET all blogs by id
 const getBlogById = async (req, res) => {
 	try {
-		let data = await Blog.findById(req.params.blogid);
+		let data = await Blog.find({ blogid: req.params.blogid});
 		sendResponse(200, "Sucessfull", data, req, res);
 	} catch (error) {
 		sendErrorMessage(new AppError(400, "Unsuccessful", "Invalid Request"), req, res);
@@ -54,17 +54,18 @@ const createBlog = async (req, res) => {
 const updateBlog = async (req, res) => {
 	try {
 		const data = await Blog.updateOne(
-			{ _id: req.params.blogid },
+			{ blogid: req.params.blogid },
 			{
 				$set: {
-					header: req.body.header,
+					author: req.body.author,
+					title: req.body.title,
 					content: req.body.content,
 					relatedlinks: req.body.relatedlinks,
-					imageUrl: req.body.imageUrl,
+					imageUrl: `http://localhost:${process.env.PORT}/image/${req.file.filename}`,
 				},
 			}
 		);
-		sendResponse(200, "SucessFull", newBlog, req, res);
+		sendResponse(200, "SucessFull", data, req, res);
 	} catch (error) {
 		sendErrorMessage(new AppError(400, "Unsucessfull", "Invalid Data"), req, res);
 	}
