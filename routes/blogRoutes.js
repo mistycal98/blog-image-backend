@@ -7,7 +7,7 @@ const {
 	deleteBlog,
 	deleteAllBlogs,
 } = require("../controllers/blogControllers");
-const upload = require("../controllers/multerUploads");
+const upload = require("../middlewares/multerUploads");
 const blogRouter = express.Router();
 
 blogRouter.route("/").get(getAllBlogs).post(upload.single("image"), createBlog).delete(deleteAllBlogs);

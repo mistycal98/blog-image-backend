@@ -1,5 +1,6 @@
 const uniqid = require("uniqid");
 const fs = require("fs");
+const path = require("path");
 
 const AppError = require("../helpers/appError");
 const sendErrorMessage = require("../helpers/sendErrorResponse");
@@ -10,7 +11,11 @@ const Blog = require("../models/Blog");
 const getAllBlogs = async (req, res) => {
 	try {
 		let data = await Blog.find();
-		sendResponse(200, "Sucessfull", data, req, res);
+		if (Object.keys(data)) {
+			sendResponse(200, "Sucessfull", data, req, res);
+		} else {
+			sendErrorMessage(new AppError(400, "Unsuccessful", "data Null"), req, res);
+		}
 	} catch (error) {
 		sendErrorMessage(new AppError(400, "Unsuccessful", "Invalid Request"), req, res);
 	}
@@ -35,8 +40,8 @@ const createBlog = async (req, res) => {
 			title: req.body.title,
 			content: req.body.content,
 			relatedlinks: req.body.relatedlinks,
-			imageUrl: {
-				data: fs.readFileSync(path.join(__dirname, "..", "images", "req.file.filename")),
+			image: {
+				data: fs.readFileSync(path.join(__dirname, "..", "blog-images", "images", req.file.filename)),
 				contentType: "image/png",
 			},
 		});

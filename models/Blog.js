@@ -19,16 +19,13 @@ const blogSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	relatedlinks: 
-		{ 
-			title: { type: String },
-			id: { type: String },
-		},
-,
+	relatedlinks: {
+		title: { type: String },
+		id: { type: String },
+	},
 	image: {
-		type: Buffer,
+		data: Buffer,
 		contentType: String,
-		required: true,
 	},
 	date: {
 		type: Date,
