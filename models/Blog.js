@@ -20,8 +20,9 @@ const blogSchema = new mongoose.Schema({
 		required: true,
 	},
 	relatedlinks: {
+		_id: false,
+		id: { type: String, required: true },
 		title: { type: String },
-		id: { type: String },
 	},
 	imageUrl: {
 		type: String,

@@ -10,12 +10,12 @@ const Blog = require("../models/Blog");
 // GET all blogs
 const getAllBlogs = async (req, res) => {
 	try {
-		let data = await Blog.find();
-		if (Object.keys(data)) {
-			sendResponse(200, "Sucessfull", data, req, res);
-		} else {
-			sendErrorMessage(new AppError(400, "Unsuccessful", "data Null"), req, res);
-		}
+		let data = await Blog.find().select("blogid author title content relatedlinks imageUrl");
+		let result = {
+			count: data.length,
+			data: data,
+		};
+		sendResponse(200, "Sucessfull", result, req, res);
 	} catch (error) {
 		sendErrorMessage(new AppError(400, "Unsuccessful", "Invalid Request"), req, res);
 	}
@@ -24,7 +24,7 @@ const getAllBlogs = async (req, res) => {
 // GET all blogs by id
 const getBlogById = async (req, res) => {
 	try {
-		let data = await Blog.find({ blogid: req.params.blogid});
+		let data = await Blog.find({ blogid: req.params.blogid });
 		sendResponse(200, "Sucessfull", data, req, res);
 	} catch (error) {
 		sendErrorMessage(new AppError(400, "Unsuccessful", "Invalid Request"), req, res);
@@ -46,30 +46,11 @@ const createBlog = async (req, res) => {
 		sendResponse(200, "SucessFull", newBlog, req, res);
 	} catch (error) {
 		console.log(error);
-		sendErrorMessage(new AppError(400, "Unsucessfull", "Invalid Data"), req, res);
+		sendErrorMessage(new AppError(400, "Unsucessfull", error), req, res);
 	}
 };
 
-// PATCH update a blog
-const updateBlog = async (req, res) => {
-	try {
-		const data = await Blog.updateOne(
-			{ blogid: req.params.blogid },
-			{
-				$set: {
-					author: req.body.author,
-					title: req.body.title,
-					content: req.body.content,
-					relatedlinks: req.body.relatedlinks,
-					imageUrl: `http://localhost:${process.env.PORT}/image/${req.file.filename}`,
-				},
-			}
-		);
-		sendResponse(200, "SucessFull", data, req, res);
-	} catch (error) {
-		sendErrorMessage(new AppError(400, "Unsucessfull", "Invalid Data"), req, res);
-	}
-};
+
 
 //DELETE delete a blog
 const deleteBlog = async (req, res) => {
@@ -95,7 +76,6 @@ module.exports = {
 	getAllBlogs,
 	getBlogById,
 	createBlog,
-	updateBlog,
 	deleteBlog,
 	deleteAllBlogs,
 };

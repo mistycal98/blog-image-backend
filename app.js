@@ -7,8 +7,9 @@ const app = express();
 
 dotenv.config({ path: "./config.env" });
 
-app.use('/image',express.static('blog-images/images'));
 app.use(express.json());
+
+app.use('/image',express.static('blog-images/images'));
 app.get("/", (req, res) => {
 	res.send("<h1>Home Page</h1>");
 });
