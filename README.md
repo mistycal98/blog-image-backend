@@ -29,6 +29,7 @@ This API is for basic blog creation developed with Node.js MongoDB Express and M
 - /blogs <br>
 GET - **Fetches all** the blogs from the storage
 <br>
+
 POST - This **Creates** a blog
 
 ```
@@ -43,9 +44,10 @@ POST - This **Creates** a blog
               ],
     /* for imageUrl the type will be a file and imageUrl stores a String which containts location of the image */
 
-    "imageUrl" : "The image for the banner page",
-}
+    "imageUrl" : "The image for the banner page",   
+}  
 ``` 
+ The images are saved in *projectfolder/blog-images/images/* 
 
 DELETE - **Deletes all** the blogs you create
 <br>
