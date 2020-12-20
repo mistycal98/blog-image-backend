@@ -61,7 +61,7 @@ const createBlog = async (req, res) => {
 //DELETE delete a blog
 const deleteBlog = async (req, res) => {
 	try {
-		const data = await Blog.deleteOne({ _id: req.params.blogid });
+		const data = await Blog.deleteOne({ blogid: req.params.blogid });
 		sendResponse(200, "SucessFull", data, req, res);
 	} catch (error) {
 		console.log(error);

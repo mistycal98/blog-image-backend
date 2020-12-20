@@ -90,5 +90,6 @@ $ npm start
 ```
 
 # Try it out with Postman
-[Blog-backend-Image]()
+
+[Blog-backend-Image](https://www.getpostman.com/collections/b7298d6a1370471cfadf)
  
