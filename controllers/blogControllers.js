@@ -10,7 +10,7 @@ const Blog = require("../models/Blog");
 // GET all blogs
 const getAllBlogs = async (req, res) => {
 	try {
-		let data = await Blog.find().select("blogid author title content relatedlinks imageUrl");
+		let data = await Blog.find().select("blogid author title content links imageUrl");
 		let result = {
 			count: data.length,
 			data: data,
@@ -39,18 +39,24 @@ const createBlog = async (req, res) => {
 			author: req.body.author,
 			title: req.body.title,
 			content: req.body.content,
-			relatedlinks: req.body.relatedlinks,
+			links: JSON.parse(req.body.links),
 			imageUrl: `http://localhost:${process.env.PORT}/image/${req.file.filename}`,
 		});
 		let newBlog = await data.save();
-		sendResponse(200, "SucessFull", newBlog, req, res);
-	} catch (error) {
-		console.log(error);
-		sendErrorMessage(new AppError(400, "Unsucessfull", error), req, res);
+		let result = {
+			blogid: newBlog.blogid,
+			author: newBlog.author,
+			title: newBlog.title,
+			content: newBlog.content,
+			links: newBlog.links,
+			imageUrl: newBlog.imageUrl,
+		};
+		sendResponse(200, "SucessFull", result, req, res);
+	} catch (err) {
+		console.log(err);
+		sendErrorMessage(new AppError(400, "Unsucessfull", err), req, res);
 	}
 };
-
-
 
 //DELETE delete a blog
 const deleteBlog = async (req, res) => {

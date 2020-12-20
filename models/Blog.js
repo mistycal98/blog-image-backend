@@ -1,5 +1,6 @@
 const uniqid = require("uniqid");
 const mongoose = require("mongoose");
+const { text } = require("express");
 
 const blogSchema = new mongoose.Schema({
 	blogid: {
@@ -19,10 +20,15 @@ const blogSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	relatedlinks: {
-		_id: false,
-		id: { type: String, required: true },
-		title: { type: String },
+	links: {
+		type: [
+			{
+				_id: false,
+				title: { type: String, required: true },
+				id: { type: String, default: uniqid() },
+			},
+		],
+		required: true,
 	},
 	imageUrl: {
 		type: String,
