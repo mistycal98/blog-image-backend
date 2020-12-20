@@ -1,3 +1,4 @@
+Additional Features Branch
 # Blog-Image-Backend
 This API is for basic blog creation developed with Node.js MongoDB Express and Mongoose and Multer for handling image uploads
 
