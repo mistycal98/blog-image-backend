@@ -29,7 +29,7 @@ This API is for basic blog creation developed with Node.js MongoDB Express and M
 - /blogs <br>
 GET - **Fetches all** the blogs from the storage
 <br>
-POST - **Creates** a blog
+POST - This **Creates** a blog
 
 ```
 {
