@@ -58,9 +58,8 @@ DELETE - Delete a blog by a specific id
 
 # Pre-requisite
 
-- [Node.js]() 
-
-- [npm]()
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/) - Node Package Manager
 
 # Running the project on localhost
 Clone Repository
